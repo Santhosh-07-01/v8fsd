@@ -1,11 +1,1 @@
-[
-    {"name":"sai",
-    "age":25,
-    "city": "bangalore"
-    },
-    {"name":"sais",
-    "age":25,
-    "city": "hyd"
-    }
-
-]
+[{"name":"user1","id":1,"dept":"cse"},{"name":"user2","id":2,"dept":"aiml"},{"name":"user3","id":3,"dept":"cse"}]

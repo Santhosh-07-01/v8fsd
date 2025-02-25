@@ -1,21 +1,24 @@
-const os = require('os');
+const express = require("express");
+const app = express();
+const users = require("./users.json");
+const fs = require("fs");
+app.use(express.json());
 
+app.put("/user/:id", (req, res) => {
+  const id = req.params.id;
+  const user1 = users.find((user) => user.id === Number(id));
 
-function trackMemoryUsage() {
-  const totalMemory = os.totalmem();  
-  const freeMemory = os.freemem();    
+  if (user1) {
+    const index = users.indexOf(user1);
 
+    users[index].dept = req.body.dept;
+    res.json(users);
+    fs.writeFileSync("./users.json", JSON.stringify(users));
+  } else {
+    res.send("invalid user");
+  }
+});
 
-  const freeMemoryPercentage = (freeMemory / totalMemory) * 100;
-
-
-  console.log(`Total Memory: ${(totalMemory / (1024 * 1024 * 1024)).toFixed(2)} GB`);
-  console.log(`Free Memory: ${(freeMemory / (1024 * 1024 * 1024)).toFixed(2)} GB`);
-  console.log(`Free Memory Percentage: ${freeMemoryPercentage.toFixed(2)}%`);
-}
-
-
-setInterval(trackMemoryUsage, 5000);
-
-
-
+app.listen(3000, () => {
+  console.log("server is running on port 3000");
+}); 
